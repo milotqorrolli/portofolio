@@ -162,7 +162,6 @@ export default function Home() {
           >
             <span className="text-[#C9F603]">Full Stack Developer</span>
             <br />
-            <span>3+ Years of Experience</span>
           </motion.h1>
           <p className="text-lg md:text-xl text-white-400 max-w-3xl mb-12">
             Hi, I'm Milot, a Software Developer specializing in full-stack development.
