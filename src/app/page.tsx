@@ -176,7 +176,7 @@ export default function Home() {
               See My Work
             </a>
             <a 
-              href="/cv.pdf" 
+              href="/CV - Milot Qorrolli.pdf" 
               className="border-2 border-[#C9F603] text-[#C9F603] px-8 py-4 hover:bg-[#C9F603] hover:text-black transition-colors text-lg"
               download="Milot_Qorrolli_CV.pdf"
               target="_blank"
