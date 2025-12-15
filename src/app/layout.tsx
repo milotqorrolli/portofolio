@@ -15,7 +15,7 @@ const spaceMono = Space_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Milot Qorrolli | Brutalist Portfolio',
+  title: 'Milot Qorrolli | Portfolio',
   description: 'Full Stack Developer Portfolio',
 }
 
