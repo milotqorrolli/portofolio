@@ -168,7 +168,7 @@ export default function Home() {
       description: 'Corporate identity and management portal',
       details: 'Developed a web application using React.js, bootstrapped with Create React App. Implemented interactive UI components and managed state effectively. Utilized npm scripts for development and production builds.',
       tech: ['React', 'UX/UI'],
-      type: 'Client',
+      type: 'Project',
       color: 'bg-white'
     }
   ]
