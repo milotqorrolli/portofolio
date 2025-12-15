@@ -17,6 +17,9 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: 'Milot Qorrolli | Portfolio',
   description: 'Full Stack Developer Portfolio',
+  icons: {
+    icon: '/icon.svg',
+  },
 }
 
 export default function RootLayout({
