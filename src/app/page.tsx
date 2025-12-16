@@ -270,7 +270,7 @@ export default function Home() {
                 View Projects
               </a>
               <a
-                href="/CV.pdf"
+                href="/CV_Milot_Qorrolli.pdf"
                 target="_blank"
                 className="bg-white border-4 border-black px-8 py-4 font-bold text-xl uppercase tracking-wider hover:bg-black hover:text-white transition-colors"
                 download="Milot_Qorrolli_CV.pdf"
