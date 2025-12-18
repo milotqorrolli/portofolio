@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, Space_Mono } from 'next/font/google'
 import './globals.css'
+import { ThemeProvider } from '../components/ThemeProvider'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -28,12 +30,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
-      <body className="bg-[#0f0f0f] text-white">
-        <main className="min-h-screen">
-          {children}
-        </main>
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
+      <body className="bg-brutal-bg dark:bg-brutal-black text-black dark:text-white transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   )
-} 
+}

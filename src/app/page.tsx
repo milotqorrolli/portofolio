@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { details } from 'framer-motion/client'
+import { motion } from 'framer-motion'
+import { useTheme } from 'next-themes'
 
 const Marquee = ({ text, direction = 1, className = "" }: { text: string, direction?: number, className?: string }) => {
   return (
-    <div className={`overflow-hidden py-4 border-y-4 border-black bg-brutal-yellow ${className}`}>
+    <div className={`overflow-hidden py-4 border-y-4 border-black dark:border-white bg-brutal-yellow ${className}`}>
       <div className="flex animate-marquee whitespace-nowrap">
         {[...Array(10)].map((_, i) => (
           <span key={i} className="text-4xl font-bold font-mono mx-4 uppercase tracking-tighter text-black">
@@ -25,18 +25,17 @@ const ProjectCard = ({ title, description, tech, type, color, index, onClick }: 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, x: -8, boxShadow: '8px 8px 0px 0px #000' }}
+      whileHover={{ y: -8, x: -8 }}
       onClick={onClick}
-      className={`border-4 border-black p-6 md:p-8 ${color} text-black transition-all relative group h-full flex flex-col justify-between cursor-pointer`}
-      style={{ boxShadow: '4px 4px 0px 0px #000' }}
+      className={`border-4 border-black dark:border-white p-6 md:p-8 ${color} transition-all relative group h-full flex flex-col justify-between cursor-pointer shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#fff] hover:shadow-[8px_8px_0px_0px_#000] dark:hover:shadow-[8px_8px_0px_0px_#fff]`}
     >
       <div>
-        <div className="flex justify-between items-start mb-4 border-b-2 border-black pb-2">
+        <div className="flex justify-between items-start mb-4 border-b-2 border-black dark:border-black/20 pb-2">
           <span className="font-mono font-bold text-sm bg-black text-white px-2 py-1">{type}</span>
-          <span className="font-mono font-bold text-xl">0{index + 1}</span>
+          <span className="font-mono font-bold text-xl mix-blend-difference">0{index + 1}</span>
         </div>
-        <h3 className="text-3xl md:text-4xl font-bold mb-4 leading-none uppercase">{title}</h3>
-        <p className="font-mono text-sm md:text-base mb-6 opacity-90 font-medium line-clamp-3">{description}</p>
+        <h3 className="text-3xl md:text-4xl font-bold mb-4 leading-none uppercase mix-blend-difference">{title}</h3>
+        <p className="font-mono text-sm md:text-base mb-6 opacity-90 font-medium line-clamp-3 mix-blend-difference">{description}</p>
       </div>
       <div className="flex flex-wrap gap-2 mt-auto">
         {tech.map((t: string, i: number) => (
@@ -53,6 +52,7 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<any>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     setIsMounted(true)
@@ -76,7 +76,6 @@ export default function Home() {
   ]
 
   /* Project Modal Component */
-  /* Project Modal Component */
   const ProjectModal = ({ project, onClose }: { project: any, onClose: () => void }) => {
     if (!project) return null
     return (
@@ -85,13 +84,13 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="bg-[#F4F4F0] border-4 border-black p-6 md:p-12 max-w-2xl w-full relative shadow-[16px_16px_0px_0px_#000] max-h-[90vh] overflow-y-auto"
+          className="bg-brutal-bg dark:bg-brutal-black border-4 border-black dark:border-white p-6 md:p-12 max-w-2xl w-full relative shadow-[16px_16px_0px_0px_#000] dark:shadow-[16px_16px_0px_0px_#fff] max-h-[90vh] overflow-y-auto"
           onClick={e => e.stopPropagation()}
         >
           <div className="flex justify-end mb-4 sticky top-0 z-20 md:absolute md:top-4 md:right-4 md:mb-0">
             <button
               onClick={onClose}
-              className="bg-brutal-red text-white border-2 border-black p-2 font-bold hover:bg-black transition-colors shadow-[4px_4px_0px_0px_#000]"
+              className="bg-brutal-red text-white border-2 border-black dark:border-white p-2 font-bold hover:bg-black dark:hover:bg-white dark:hover:text-black transition-colors shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#fff]"
             >
               CLOSE [X]
             </button>
@@ -99,10 +98,10 @@ export default function Home() {
 
           <div className="mb-8 mt-2 md:mt-0">
             <span className="bg-black text-white px-3 py-1 font-mono font-bold text-sm tracking-wider">{project.type}</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4 uppercase leading-none">{project.title}</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mt-4 uppercase leading-none dark:text-white">{project.title}</h2>
           </div>
 
-          <div className="prose font-mono border-y-4 border-black py-8 mb-8">
+          <div className="prose font-mono border-y-4 border-black dark:border-white py-8 mb-8 dark:text-white">
             <p className="text-base md:text-lg leading-relaxed">
               {project.details || project.description}
             </p>
@@ -110,7 +109,7 @@ export default function Home() {
 
           <div className="flex flex-wrap gap-2">
             {project.tech.map((t: string, i: number) => (
-              <span key={i} className="border-2 border-black px-3 py-1 font-bold bg-white text-black">
+              <span key={i} className="border-2 border-black dark:border-white px-3 py-1 font-bold bg-white text-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors">
                 {t}
               </span>
             ))}
@@ -120,8 +119,6 @@ export default function Home() {
     )
   }
 
-
-
   const projects = [
     {
       title: 'Trendly',
@@ -129,7 +126,7 @@ export default function Home() {
       details: 'Developed automation workflows and internal tools that power social-media content operations end-to-end. Built API integrations, cloud functions, and data pipelines (e.g., BigQuery logging + dashboards) to ingest, validate, track, and optimize publishing workflows. Focused on robustness (retries/backoff, error handling), operational visibility, and building fast, scalable tools for the team.',
       tech: ['Python', 'Automation', 'APIs', 'Cloud'],
       type: 'Work',
-      color: 'bg-brutal-yellow'
+      color: 'bg-brutal-yellow text-black'
     },
     {
       title: 'Raiffeisen Bank',
@@ -137,7 +134,7 @@ export default function Home() {
       details: 'Built and maintained secure integration services in a regulated banking environment. Worked on REST APIs with ASP.NET Core and Entity Framework, supported process automation with Appian (low-code), and integrated with the Temenos T24 core banking ecosystem. Focused on reliability, clean architecture, and compliance (RBAC, auditability, encryption, and monitoring).',
       tech: ['C#', '.NET', 'SQL Server'],
       type: 'Work',
-      color: 'bg-white'
+      color: 'bg-white text-black dark:bg-zinc-800 dark:text-white'
     },
     {
       title: 'NFT Platform',
@@ -161,7 +158,7 @@ export default function Home() {
       details: 'University Project - Developed a scalable mini-social media platform with authentication and image uploads. Used React frontend with Flask backend and PostgreSQL database. Emphasized responsive UI/UX and clean REST API separation.',
       tech: ['MERN', 'Socket.io', 'Redis'],
       type: 'Project',
-      color: 'bg-brutal-yellow'
+      color: 'bg-brutal-yellow text-black'
     },
     {
       title: 'Construction Company Website - EDMA GmBH',
@@ -169,19 +166,18 @@ export default function Home() {
       details: 'Developed a web application using React.js, bootstrapped with Create React App. Implemented interactive UI components and managed state effectively. Utilized npm scripts for development and production builds.',
       tech: ['React', 'UX/UI'],
       type: 'Project',
-      color: 'bg-white'
+      color: 'bg-white text-black dark:bg-zinc-800 dark:text-white'
     }
   ]
 
   return (
-    <div className="min-h-screen bg-[#F4F4F0] text-black overflow-x-hidden selection:bg-brutal-red selection:text-white">
+    <div className="min-h-screen bg-brutal-bg dark:bg-brutal-black text-black dark:text-white overflow-x-hidden selection:bg-brutal-red selection:text-white transition-colors duration-300">
       {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
 
-
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 border-b-4 border-black bg-[#F4F4F0]">
+      <nav className="fixed top-0 w-full z-50 border-b-4 border-black dark:border-white bg-brutal-bg dark:bg-brutal-black transition-colors duration-300">
         <div className="max-w-[1920px] mx-auto flex justify-between items-stretch">
-          <div className="border-r-4 border-black p-4 md:p-6 bg-brutal-red hover:bg-black transition-colors group">
+          <div className="border-r-4 border-black dark:border-white p-4 md:p-6 bg-brutal-red hover:bg-black transition-colors group">
             <span className="font-bold text-xl md:text-2xl tracking-tighter group-hover:text-white">MQ.25</span>
           </div>
           <div className="hidden md:flex">
@@ -189,14 +185,14 @@ export default function Home() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="flex items-center px-8 border-l-4 border-black font-mono font-bold hover:bg-black hover:text-white transition-colors text-sm uppercase tracking-widest"
+                className="flex items-center px-8 border-l-4 border-black dark:border-white font-mono font-bold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors text-sm uppercase tracking-widest"
               >
                 {item}
               </a>
             ))}
           </div>
           <div
-            className="md:hidden flex items-center border-l-4 border-black px-6 bg-brutal-yellow font-bold cursor-pointer hover:bg-black hover:text-white transition-colors z-50 relative"
+            className="md:hidden flex items-center border-l-4 border-black dark:border-white px-6 bg-brutal-yellow font-bold cursor-pointer hover:bg-black hover:text-white transition-colors z-50 relative"
             onClick={toggleMenu}
           >
             {isMenuOpen ? 'CLOSE' : 'MENU'}
@@ -209,27 +205,27 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed inset-0 z-40 bg-[#F4F4F0] pt-24 px-6 md:hidden flex flex-col gap-8 h-screen"
+          className="fixed inset-0 z-40 bg-brutal-bg dark:bg-brutal-black pt-24 px-6 md:hidden flex flex-col gap-8 h-screen"
         >
           {['WORK', 'TECH', 'CONTACT'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
               onClick={toggleMenu}
-              className="text-6xl font-bold uppercase tracking-tighter hover:text-brutal-red transition-colors border-b-4 border-black pb-4"
+              className="text-6xl font-bold uppercase tracking-tighter hover:text-brutal-red transition-colors border-b-4 border-black dark:border-white pb-4 dark:text-white"
             >
               {item}
             </a>
           ))}
           <div className="mt-auto mb-12 pt-8">
-            <p className="font-mono text-sm opacity-50">MILOT QORROLLI<br />FULL STACK DEVELOPER</p>
+            <p className="font-mono text-sm opacity-50 dark:text-gray-400">MILOT QORROLLI<br />FULL STACK DEVELOPER</p>
           </div>
         </motion.div>
       )}
 
       {/* Hero Section */}
-      <header className="min-h-screen pt-24 pb-12 flex flex-col justify-center relative overflow-hidden border-b-4 border-black">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-grid-pattern opacity-10 border-l-4 border-black hidden lg:block"></div>
+      <header className="min-h-screen pt-24 pb-12 flex flex-col justify-center relative overflow-hidden border-b-4 border-black dark:border-white">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-grid-pattern opacity-10 border-l-4 border-black dark:border-white hidden lg:block"></div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
@@ -237,7 +233,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold leading-[0.8] tracking-tighter mb-8">
+            <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold leading-[0.8] tracking-tighter mb-8 text-black dark:text-white">
               MILOT
               <span className="block text-stroke-black text-transparent hover:text-brutal-blue transition-colors duration-300">QORROLLI</span>
             </h1>
@@ -248,7 +244,7 @@ export default function Home() {
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="bg-black text-white p-6 md:p-8 shadow-[8px_8px_0px_0px_#FF4500] border-2 border-transparent"
+              className="bg-black text-white p-6 md:p-8 shadow-[8px_8px_0px_0px_#FF4500] border-2 border-transparent dark:border-white"
             >
               <h2 className="text-2xl md:text-4xl font-bold font-mono mb-4">FULL STACK<br />DEVELOPER</h2>
               <p className="font-mono text-sm md:text-base text-gray-300">
@@ -265,14 +261,14 @@ export default function Home() {
             >
               <a
                 href="#work"
-                className="bg-brutal-yellow border-4 border-black px-8 py-4 font-bold text-xl uppercase tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[6px_6px_0px_0px_#000]"
+                className="bg-brutal-yellow text-black border-4 border-black dark:border-white px-8 py-4 font-bold text-xl uppercase tracking-wider hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[6px_6px_0px_0px_#000] dark:shadow-[6px_6px_0px_0px_#fff]"
               >
                 View Projects
               </a>
               <a
                 href="/CV_Milot_Qorrolli.pdf"
                 target="_blank"
-                className="bg-white border-4 border-black px-8 py-4 font-bold text-xl uppercase tracking-wider hover:bg-black hover:text-white transition-colors"
+                className="bg-white text-black border-4 border-black dark:border-white px-8 py-4 font-bold text-xl uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                 download="Milot_Qorrolli_CV.pdf"
               >
                 Download CV
@@ -285,7 +281,7 @@ export default function Home() {
       <Marquee text="AVAILABLE FOR COLLABORATION • FRONTEND • BACKEND • WEB3 • CLOUD •" />
 
       {/* Technologies Section */}
-      <section id="tech" className="py-20 border-b-4 border-black relative">
+      <section id="tech" className="py-20 border-b-4 border-black dark:border-white relative">
         <div className="container mx-auto px-6">
           <h2 className="text-5xl md:text-7xl font-bold mb-16 uppercase tracking-tighter">
             Stack <span className="text-brutal-red text-2xl md:text-4xl align-top font-mono">01</span>
@@ -296,7 +292,7 @@ export default function Home() {
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.05, rotate: Math.random() * 4 - 2 }}
-                className="border-4 border-black bg-white px-6 py-4 flex items-center gap-3 shadow-[4px_4px_0px_0px_#000] hover:shadow-[8px_8px_0px_0px_#2A52BE] transition-all cursor-crosshair"
+                className="border-4 border-black dark:border-white bg-white dark:bg-zinc-900 dark:text-white px-6 py-4 flex items-center gap-3 shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#fff] hover:shadow-[8px_8px_0px_0px_#2A52BE] dark:hover:shadow-[8px_8px_0px_0px_#2A52BE] transition-all cursor-crosshair"
               >
                 <span className="text-2xl">{tech.icon}</span>
                 <span className="font-bold font-mono text-lg uppercase">{tech.title}</span>
@@ -307,7 +303,7 @@ export default function Home() {
       </section>
 
       {/* Work Section */}
-      <section id="work" className="py-20 border-b-4 border-black bg-brutal-bg">
+      <section id="work" className="py-20 border-b-4 border-black dark:border-white bg-brutal-bg dark:bg-brutal-black">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-end mb-16">
             <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter relative z-10">
@@ -325,7 +321,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 bg-black text-white relative overflow-hidden">
+      <section id="contact" className="py-32 bg-black text-white dark:border-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
         <div className="container mx-auto px-6 text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold mb-12 uppercase tracking-tight">Let's Build Something<br /><span className="text-brutal-yellow">Aggressive</span></h2>
