@@ -24,7 +24,7 @@ const ProjectCard = ({ title, description, tech, type, color, index, onClick }: 
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.1, delay: index * 0.1 }}
       whileHover={{ y: -8, x: -8, boxShadow: '8px 8px 0px 0px #000' }}
       onClick={onClick}
       className={`border-4 border-black p-6 md:p-8 ${color} text-black transition-all relative group h-full flex flex-col justify-between cursor-pointer`}
@@ -69,7 +69,7 @@ export default function Home() {
     { title: 'PostgreSQL', icon: '🐘' },
     { title: 'MongoDB', icon: '🍃' },
     { title: 'Web3', icon: '⛓️' },
-    { title: 'AWS/Azure', icon: '☁️' },
+    { title: 'AWS/GCP', icon: '☁️' },
     { title: 'Docker', icon: '🐳' },
     { title: 'TypeScript', icon: '📘' },
     { title: 'REST APIs', icon: '🔌' },
