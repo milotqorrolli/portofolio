@@ -126,7 +126,7 @@ export default function Home() {
     {
       title: 'Trendly',
       description: 'Built automation workflows and internal dashboards to streamline social-media content operations end-to-end, integrating APIs and cloud services with reliable logging, retries, and monitoring.',
-      details: 'Developed automation workflows and internal tools that power social-media content operations end-to-end. Built API integrations, cloud functions, and data pipelines (e.g., BigQuery logging + dashboards) to ingest, validate, track, and optimize publishing workflows. Focused on robustness (retries/backoff, error handling), operational visibility, and building fast, scalable tools for the team.',
+      details: 'Developed automation workflows and internal tools that power social-media content operations end-to-end. Built API integrations, cloud functions, and data pipelines (BigQuery logging + dashboards) to ingest, validate, track, and optimize publishing workflows. Focused on robustness (retries/backoff, error handling), operational visibility, and building fast, scalable tools for the team.',
       tech: ['Python', 'Automation', 'APIs', 'Cloud'],
       type: 'Work',
       color: 'bg-brutal-yellow'
